@@ -1,8 +1,10 @@
 using System;
+using EcsEngine.Components;
 using EcsEngine.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
+using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 
 namespace Client
@@ -20,14 +22,22 @@ namespace Client
             _systems = new EcsSystems(_world);
 
             _systems
+                //Logic:
                 .Add(new MovementSystem())
-                
-                
+                .Add(new HealthEmptySystem())
+                .Add(new DeathRequestSystem())
+
+                //View:
                 .Add(new TransformViewSystem())
+                .Add(new AnimatorDeathListener())
                 
+                //Editor:
 #if UNITY_EDITOR
-                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem());
+                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+                
+                //Clear:
+                .DelHere<DeathEvent>();
         }
 
         void Start()

@@ -4,13 +4,19 @@ using UnityEngine;
 
 namespace Content
 {
-    public class UnitInstaller:EntityInstaller
+    public class ArcherInstaller:EntityInstaller
     {
         [SerializeField] 
         private Animator animator;
 
         [SerializeField] 
         private string team;
+        
+        [SerializeField]
+        private Transform firePoint;
+
+        [SerializeField]
+        private Entity arrowPrefab;
         
         protected override void Install(Entity entity)
         {
@@ -21,6 +27,12 @@ namespace Content
             entity.AddData(new Health{value = 5});
             entity.AddData(new Team{value = team});
             entity.AddData(new DamagableTag());
+            
+            entity.AddData(new DistanceWeapon
+            {
+                firePoint = firePoint,
+                bulletPrefab = arrowPrefab
+            });
             
             //View:
             entity.AddData(new TransformView{value = transform});
