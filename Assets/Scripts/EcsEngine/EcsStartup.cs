@@ -1,4 +1,5 @@
 using System;
+using EcsEngine;
 using EcsEngine.Components;
 using EcsEngine.Systems;
 using Leopotam.EcsLite;
@@ -6,6 +7,7 @@ using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
 using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
+using Zenject;
 
 namespace Client
 {
@@ -13,20 +15,31 @@ namespace Client
     {
         private EntityManager _entityManager;
         private EcsWorld _world;
+        private EcsWorld _events;
         private IEcsSystems _systems;
+
+        [Inject]
+        public void Construct(EntityManager entityManager)
+        {
+            _entityManager = entityManager;
+        }
 
         private void Awake()
         {
-            _entityManager = new EntityManager();
             _world = new EcsWorld();
+            _events = new EcsWorld();
             _systems = new EcsSystems(_world);
+            
+            _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
                 //Logic:
                 .Add(new MovementSystem())
                 .Add(new HealthEmptySystem())
                 .Add(new DeathRequestSystem())
-
+                .Add(new TargetExistSystem())
+                .Add(new TargetRequestSystem())
+                
                 //View:
                 .Add(new TransformViewSystem())
                 .Add(new AnimatorDeathListener())
@@ -43,7 +56,7 @@ namespace Client
         void Start()
         {
             _entityManager.Initialize(_world);
-            _systems.Inject();
+            _systems.Inject(_entityManager);
             _systems.Init();
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Content
 {
-    internal sealed class BulletInstaller : EntityInstaller
+    internal sealed class ArrowInstaller : EntityInstaller
     {
         protected override void Install(Entity entity)
         {

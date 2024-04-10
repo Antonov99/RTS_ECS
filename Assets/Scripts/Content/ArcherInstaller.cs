@@ -27,6 +27,7 @@ namespace Content
             entity.AddData(new Health{value = 5});
             entity.AddData(new Team{value = team});
             entity.AddData(new DamagableTag());
+            entity.AddData(new Target{value = null});
             
             entity.AddData(new DistanceWeapon
             {
