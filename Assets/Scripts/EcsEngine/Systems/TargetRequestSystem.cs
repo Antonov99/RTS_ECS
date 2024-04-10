@@ -1,7 +1,6 @@
 ﻿using EcsEngine.Components;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
 namespace EcsEngine.Systems
@@ -15,12 +14,10 @@ namespace EcsEngine.Systems
         {
             foreach (var entity in _filterUnit.Value)
             {
-                ref var target = ref _filterUnit.Pools.Inc2.Get(entity);
                 var myTeam = _filterUnit.Pools.Inc3.Get(entity).value;
                 var myPosition = _filterUnit.Pools.Inc4.Get(entity).value;
                 float minDistance = float.MaxValue;
-                int targetEntity = -1;
-                
+
                 foreach (var enemy in _filterAllUnits.Value)
                 {
                     var enemyTeam = _filterAllUnits.Pools.Inc1.Get(enemy).value;
@@ -33,14 +30,15 @@ namespace EcsEngine.Systems
                         if (distance < minDistance)
                         {
                             minDistance = distance;
-                            targetEntity = enemy;
+                            var targetEntity = enemy;
                             if (targetEntity != -1)
                             {
-                                //_filterUnit.Pools.Inc2.Get(entity).value = targetEntity;
+                                _filterUnit.Pools.Inc2.Get(entity).value = targetEntity;
                             }
                         }
                     }
                 }
+                _filterUnit.Pools.Inc1.Del(entity);
             }
         }
     }

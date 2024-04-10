@@ -16,7 +16,7 @@ namespace EcsEngine.Systems
             {
                 var target=_filter.Pools.Inc1.Get(entity).value;
                 
-                if (target is null || _inactivePool.Value.Has(target.Id)) 
+                if (target == -1 || _inactivePool.Value.Has(target)) 
                     _targetPool.Value.Add(entity) = new TargetRequest();
             }
         }

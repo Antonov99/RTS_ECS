@@ -39,6 +39,7 @@ namespace Client
                 .Add(new DeathRequestSystem())
                 .Add(new TargetExistSystem())
                 .Add(new TargetRequestSystem())
+                .Add(new UnitAISystem())
                 
                 //View:
                 .Add(new TransformViewSystem())

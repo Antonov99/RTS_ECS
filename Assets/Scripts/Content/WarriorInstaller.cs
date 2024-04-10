@@ -21,7 +21,8 @@ namespace Content
             entity.AddData(new Health{value = 5});
             entity.AddData(new Team{value = team});
             entity.AddData(new DamagableTag());
-            entity.AddData(new Target{value = null});
+            entity.AddData(new Target{value = -1});
+            entity.AddData(new AttackDistance{value = 5f});
             
             //View:
             entity.AddData(new TransformView{value = transform});

@@ -6,6 +6,6 @@ namespace EcsEngine.Components
     [Serializable]
     public struct Target
     {
-        public Entity value;
+        public int value;
     }
 }
