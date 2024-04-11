@@ -1,5 +1,3 @@
-using System;
-using EcsEngine;
 using EcsEngine.Components;
 using EcsEngine.Systems;
 using Leopotam.EcsLite;
@@ -9,7 +7,7 @@ using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 using Zenject;
 
-namespace Client
+namespace EcsEngine
 {
     sealed class EcsStartup : MonoBehaviour
     {
@@ -29,7 +27,7 @@ namespace Client
             _world = new EcsWorld();
             _events = new EcsWorld();
             _systems = new EcsSystems(_world);
-            
+
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
 
             _systems
@@ -40,18 +38,26 @@ namespace Client
                 .Add(new TargetExistSystem())
                 .Add(new TargetRequestSystem())
                 .Add(new UnitAISystem())
-                
+                .Add(new AttackRequestSystem())
+                .Add(new VictorySystem())
+                .Add(new TowerBurningSystem())
+                .Add(new TowerBurningRequestSystem())
+
                 //View:
                 .Add(new TransformViewSystem())
                 .Add(new AnimatorDeathListener())
-                
+                .Add(new AnimatorAttackListener())
+                .Add(new AnimatorMoveListener())
+                .Add(new TowerVFXListener())
+
                 //Editor:
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
-                
+
                 //Clear:
-                .DelHere<DeathEvent>();
+                .DelHere<DeathEvent>()
+                .DelHere<AttackEvent>();
         }
 
         void Start()

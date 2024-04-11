@@ -3,7 +3,7 @@
 namespace EcsEngine.Components
 {
     [Serializable]
-    public struct DealDamageRequest
+    public struct TowerTag
     {
     }
 }

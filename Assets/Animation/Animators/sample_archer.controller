@@ -17,10 +17,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.65083444
   m_TransitionOffset: 0
-  m_ExitTime: 0.70000005
-  m_HasExitTime: 1
+  m_ExitTime: 0.020324344
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -66,13 +66,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Death
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -127,7 +127,7 @@ AnimatorStateMachine:
     m_Position: {x: 360, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -593561928753580322}
-    m_Position: {x: 380, y: 210, z: 0}
+    m_Position: {x: 350, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 298076750696671630}
     m_Position: {x: 640, y: 40, z: 0}
@@ -185,10 +185,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 1.4738586
   m_TransitionOffset: 0
-  m_ExitTime: 0.8333334
-  m_HasExitTime: 1
+  m_ExitTime: 0.0000000012573764
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1

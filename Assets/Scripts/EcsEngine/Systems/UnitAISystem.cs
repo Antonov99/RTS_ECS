@@ -7,9 +7,10 @@ namespace EcsEngine.Systems
 {
     public class UnitAISystem:IEcsRunSystem
     {
-        private EcsFilterInject<Inc<Target, MoveDirection, Position,AttackDistance>,Exc<Inactive,DealDamageRequest>> _filter;
+        private EcsFilterInject<Inc<Target, MoveDirection, Position,AttackDistance>,Exc<Inactive,AttackRequest>> _filter;
         private EcsPoolInject<Position> _positionPool;
-        private EcsPoolInject<DealDamageRequest> _dealDamageRequestPool;
+        private EcsPoolInject<AttackRequest> _attackRequestPool;
+        private EcsPoolInject<TowerTag> _towerTagPool;
         
         public void Run(IEcsSystems systems)
         {
@@ -22,7 +23,10 @@ namespace EcsEngine.Systems
                 
                 if (targetID < 0) return;
                 
+                if (_towerTagPool.Value.Has(targetID)) attackDistance += 5f;
+                
                 Vector3 targetPosition = _positionPool.Value.Get(targetID).value;
+                
                 if (Vector3.Distance(targetPosition, position) > attackDistance)
                 {
                     direction = (targetPosition - position).normalized;
@@ -30,7 +34,7 @@ namespace EcsEngine.Systems
                 else
                 {
                     direction = Vector3.zero;
-                    _dealDamageRequestPool.Value.Add(entity) = new DealDamageRequest();
+                    _attackRequestPool.Value.Add(entity) = new AttackRequest();
                 }
             }
         }
