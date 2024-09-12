@@ -1,4 +1,5 @@
-﻿using EcsEngine.Components;
+﻿using DefaultNamespace;
+using EcsEngine.Components;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Content
     public class TowerInstaller:EntityInstaller
     {
         [SerializeField] 
-        private string team;
+        private TeamData team;
         
         [SerializeField] 
         private ParticleSystem fireVFX;

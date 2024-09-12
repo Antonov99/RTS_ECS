@@ -1,4 +1,5 @@
-﻿using EcsEngine.Components;
+﻿using DefaultNamespace;
+using EcsEngine.Components;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Content
         private Animator animator;
 
         [SerializeField] 
-        private string team;
+        private TeamData team;
         
         protected override void Install(Entity entity)
         {

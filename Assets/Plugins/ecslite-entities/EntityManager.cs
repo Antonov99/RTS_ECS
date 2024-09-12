@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Leopotam.EcsLite.Entities
 {
+    [UsedImplicitly]
     public sealed class EntityManager
     {
         private EcsWorld world;
