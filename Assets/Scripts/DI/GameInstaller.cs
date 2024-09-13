@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using DefaultNamespace.GameSystems;
 using Leopotam.EcsLite.Entities;
 using Money;
 using Units;
@@ -25,5 +26,7 @@ public class GameInstaller : MonoInstaller
         
         Container.BindInterfacesAndSelfTo<MoneyPresenter>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<UnitsCatalogPresenter>().AsSingle().WithArguments(catalogView).NonLazy();
+
+        Container.BindInterfacesAndSelfTo<MoneyFarmingSystem>().AsSingle().NonLazy();
     }
 }
