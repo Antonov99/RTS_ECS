@@ -12,11 +12,11 @@ namespace DefaultNamespace
     public class PriceCatalog:SerializedScriptableObject
     {
         [OdinSerialize]
-        public Dictionary<UnitsData,int> price;
+        public Dictionary<UnitsData,int> Price;
 
         public int GetPrice(UnitsData id)
         {
-            return price[id];
+            return Price[id];
         }
     }
 }

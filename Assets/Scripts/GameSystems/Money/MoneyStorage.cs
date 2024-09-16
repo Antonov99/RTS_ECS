@@ -8,11 +8,10 @@ namespace Money
     public sealed class MoneyStorage
     {
         public event Action<int, TeamData> OnMoneyChanged;
-        public event Action<int> OnMoneyEarned;
-        public event Action<int> OnMoneySpent;
-        
-        [ReadOnly, ShowInInspector]
-        public int money { get; private set; }
+        public event Action<int, TeamData> OnMoneyEarned;
+        public event Action<int, TeamData> OnMoneySpent;
+
+        [ReadOnly, ShowInInspector] public int Money { get; private set; }
 
         public TeamData team;
 
@@ -36,12 +35,12 @@ namespace Money
                 throw new Exception($"Can not earn negative money {amount}");
             }
 
-            var previousValue = money;
+            var previousValue = Money;
             var newValue = previousValue + amount;
 
-            money = newValue;
-            OnMoneyChanged?.Invoke(newValue,team);
-            OnMoneyEarned?.Invoke(amount);
+            Money = newValue;
+            OnMoneyChanged?.Invoke(newValue, team);
+            OnMoneyEarned?.Invoke(amount, team);
         }
 
         [Button]
@@ -58,7 +57,7 @@ namespace Money
                 throw new Exception($"Can not spend negative money {amount}");
             }
 
-            var previousValue = money;
+            var previousValue = Money;
             var newValue = previousValue - amount;
             if (newValue < 0)
             {
@@ -66,22 +65,22 @@ namespace Money
                     $"Negative money after spend. Money in bank: {previousValue}, spend amount {amount} ");
             }
 
-            money = newValue;
-            OnMoneyChanged?.Invoke(newValue,team);
-            OnMoneySpent?.Invoke(amount);
+            Money = newValue;
+            OnMoneyChanged?.Invoke(newValue, team);
+            OnMoneySpent?.Invoke(amount, team);
         }
 
         [Button]
         [GUIColor(0, 1, 0)]
         public void SetupMoney(int money)
         {
-            this.money = money;
-            OnMoneyChanged?.Invoke(money,team);
+            Money = money;
+            OnMoneyChanged?.Invoke(money, team);
         }
 
         public bool CanSpendMoney(int amount)
         {
-            return money >= amount;
+            return Money >= amount;
         }
     }
 }

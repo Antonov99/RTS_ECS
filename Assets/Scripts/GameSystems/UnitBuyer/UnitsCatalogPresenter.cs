@@ -12,7 +12,7 @@ namespace Units
 
         public event Action<UnitsData, TeamData> OnBuyUnit;
 
-        private const TeamData _DATA = TeamData.BLUE;
+        private const TeamData _TEAM = TeamData.BLUE;
         
         public UnitsCatalogPresenter(UnitsCatalogView view)
         {
@@ -26,7 +26,7 @@ namespace Units
         
         private void BuyUnit(UnitsData data)
         {
-            OnBuyUnit?.Invoke(data,_DATA);
+            OnBuyUnit?.Invoke(data,_TEAM);
         }
 
         void IDisposable.Dispose()

@@ -4,6 +4,7 @@ using Leopotam.EcsLite.Entities;
 using Money;
 using Units;
 using UnityEngine;
+using Upgrades;
 using Zenject;
 
 public class GameInstaller : MonoInstaller
@@ -11,6 +12,9 @@ public class GameInstaller : MonoInstaller
     [SerializeField]
     private UnitsCatalogView catalogView;
 
+    [SerializeField]
+    private UnitsUpgradeView upgradeView;
+    
     [SerializeField]
     private TeamData enemyTeam;
     
@@ -24,8 +28,11 @@ public class GameInstaller : MonoInstaller
         Container.Bind<MoneyStorage>().AsCached().WithArguments(enemyTeam).NonLazy();
         Container.Bind<MoneyStorage>().AsCached().WithArguments(myTeam).NonLazy();
         
+        Container.Bind<UnitStats>().AsSingle().NonLazy();
+        
         Container.BindInterfacesAndSelfTo<MoneyPresenter>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<UnitsCatalogPresenter>().AsSingle().WithArguments(catalogView).NonLazy();
+        Container.BindInterfacesAndSelfTo<UnitsUpgradePresenter>().AsSingle().WithArguments(upgradeView).NonLazy();
 
         Container.BindInterfacesAndSelfTo<MoneyFarmingSystem>().AsSingle().NonLazy();
     }
