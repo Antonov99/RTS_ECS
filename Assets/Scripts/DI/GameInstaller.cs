@@ -21,6 +21,9 @@ public class GameInstaller : MonoInstaller
     [SerializeField]
     private TeamData myTeam;
     
+    [SerializeField]
+    private Transform parent;
+    
     public override void InstallBindings()
     {
         Container.Bind<EntityManager>().AsSingle().NonLazy();
@@ -35,5 +38,8 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<UnitsUpgradePresenter>().AsSingle().WithArguments(upgradeView).NonLazy();
 
         Container.BindInterfacesAndSelfTo<MoneyFarmingSystem>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<EcsStatsController>().AsSingle().NonLazy();
+        Container.Bind<UnitsSpawner>().AsSingle().WithArguments(parent).NonLazy();
+
     }
 }

@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using Zenject;
 
 namespace Leopotam.EcsLite.Entities
 {
     [UsedImplicitly]
     public sealed class EntityManager
     {
-        private EcsWorld world;
+        public EcsWorld world;
 
         private readonly Dictionary<int, Entity> entities = new();
         
         public void Initialize(EcsWorld world)
         {
-            Entity[] entities = GameObject.FindObjectsOfType<Entity>();
+            Entity[] entities = Object.FindObjectsOfType<Entity>();
             for (int i = 0, count = entities.Length; i < count; i++)
             {
                 Entity entity = entities[i];
@@ -26,24 +27,24 @@ namespace Leopotam.EcsLite.Entities
 
         public Entity Create(Entity prefab, Vector3 position, Quaternion rotation, Transform parent = null)
         {
-            Entity entity = GameObject.Instantiate(prefab, position, rotation, parent);
-            entity.Initialize(this.world);
-            this.entities.Add(entity.Id, entity);
+            Entity entity = Object.Instantiate(prefab, position, rotation, parent);
+            entity.Initialize(world);
+            entities.Add(entity.Id, entity);
             return entity;
         }
 
         public void Destroy(int id)
         {
-            if (this.entities.Remove(id, out Entity entity))
+            if (entities.Remove(id, out Entity entity))
             {
                 entity.Dispose();
-                GameObject.Destroy(entity.gameObject);
+                Object.Destroy(entity.gameObject);
             }
         }
 
         public Entity Get(int id)
         {
-            return this.entities[id];
+            return entities[id];
         }
     }
 }

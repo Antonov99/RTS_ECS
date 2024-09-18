@@ -8897,10 +8897,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 8605499955441843532}
-  team: Red
+  team: 0
   firePoint: {fileID: 7972922139951120927}
   fireBallPrefab: {fileID: 1239246919554024665, guid: f275fa8fdebd63b4ab5a275f57348017,
     type: 3}
+  stats: {fileID: 11400000, guid: bd8a9b5f498ad1149ab2c99e4b44f698, type: 2}
 --- !u!1 &4149513347700956258
 GameObject:
   m_ObjectHideFlags: 0

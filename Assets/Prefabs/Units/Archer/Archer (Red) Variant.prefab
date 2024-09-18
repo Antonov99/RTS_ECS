@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 1870072543877420731, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f,
         type: 3}
       propertyPath: m_Name
-      value: Archer (Red)
+      value: Archer (Red) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1870072544955971606, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f,
         type: 3}
@@ -132,10 +132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2219063508397501781}
-  team: Red
+  team: 0
   firePoint: {fileID: 2219063508405272219}
   arrowPrefab: {fileID: 1239246919554024665, guid: f275fa8fdebd63b4ab5a275f57348017,
     type: 3}
+  stats: {fileID: 11400000, guid: bd8a9b5f498ad1149ab2c99e4b44f698, type: 2}
 --- !u!95 &2219063508397501781 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1870072544967355838, guid: 2edb3dcb9e85f4750b5bc0c0cac3d77f,

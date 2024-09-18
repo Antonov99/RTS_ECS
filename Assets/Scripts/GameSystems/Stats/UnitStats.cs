@@ -12,6 +12,8 @@ namespace DefaultNamespace
     {
         [ShowInInspector]
         private readonly Dictionary<StatsData, int> _stats = new();
+        
+        public event Action<StatsData, int> OnStatChanged;
 
         public void AddStat(StatsData name, int value)
         {
@@ -36,6 +38,7 @@ namespace DefaultNamespace
         public void SetStat(StatsData name, int value)
         {
             _stats[name] = value;
+            OnStatChanged?.Invoke(name,value);
         }
     }
 }

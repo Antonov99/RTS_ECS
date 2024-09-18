@@ -1,4 +1,5 @@
-﻿using DefaultNamespace;
+﻿using Data;
+using DefaultNamespace;
 using EcsEngine.Components;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
@@ -12,13 +13,16 @@ namespace Content
 
         [SerializeField] 
         private TeamData team;
+
+        [SerializeField]
+        private StatsConfig stats;
         
         protected override void Install(Entity entity)
         {
             //Logic:
-            entity.AddData(new MoveSpeed{value = 3});
-            entity.AddData(new Health{value = 5});
-            entity.AddData(new Damage{value = 3});
+            entity.AddData(new MoveSpeed{value = stats.GetStat(StatsData.WARRIOR_SPEED)});
+            entity.AddData(new Health{value = stats.GetStat(StatsData.WARRIOR_HEALTH)});
+            entity.AddData(new Damage{value = stats.GetStat(StatsData.WARRIOR_POWER)});
             entity.AddData(new MoveDirection{value = Vector3.zero});
             entity.AddData(new Position{value = transform.position});
             entity.AddData(new Team{value = team});

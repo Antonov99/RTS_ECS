@@ -92,6 +92,7 @@ MonoBehaviour:
   firePoint: {fileID: 2751643347794168582}
   arrowPrefab: {fileID: 1239246919554024665, guid: f275fa8fdebd63b4ab5a275f57348017,
     type: 3}
+  stats: {fileID: 11400000, guid: bd8a9b5f498ad1149ab2c99e4b44f698, type: 2}
 --- !u!114 &7408875852824098648
 MonoBehaviour:
   m_ObjectHideFlags: 0

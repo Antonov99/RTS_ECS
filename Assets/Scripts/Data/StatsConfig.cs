@@ -13,5 +13,10 @@ namespace Data
     {
         [OdinSerialize]
         public Dictionary<StatsData,int> Stats;
+
+        public int GetStat(StatsData id)
+        {
+            return Stats[id];
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Leopotam.EcsLite.Entities;
 using Money;
 using Sirenix.OdinInspector;
 using Units;
@@ -8,7 +7,7 @@ using Zenject;
 
 namespace DefaultNamespace.GameSystems
 {
-    public class UnitsSpawnManager:MonoBehaviour
+    public class UnitBuyer:MonoBehaviour
     {
         [SerializeField]
         private UnitsCatalog unitsCatalog;
@@ -19,25 +18,21 @@ namespace DefaultNamespace.GameSystems
         [SerializeField]
         private MoneyStorage[] moneyStorage;
 
-        private UnitsSpawnSystem _spawnSystem;
+        private UnitsSpawner _spawner;
 
         private UnitsCatalogPresenter _catalogPresenter;
-        
-        [SerializeField]
-        private Transform parent;
         
         [ReadOnly, ShowInInspector]
         private Dictionary<UnitsData, UnitConfig> _units = new();
 
         [Inject]
-        public void Construct(MoneyStorage[] storage, UnitsCatalogPresenter catalogPresenter, EntityManager entityManager)
+        public void Construct(MoneyStorage[] storage, UnitsCatalogPresenter catalogPresenter, UnitsSpawner spawner)
         {
             moneyStorage = storage;
             _catalogPresenter = catalogPresenter;
-
-            _catalogPresenter.OnBuyUnit += BuyUnit;
+            _spawner = spawner;
             
-            _spawnSystem = new UnitsSpawnSystem(entityManager, parent);
+            _catalogPresenter.OnBuyUnit += BuyUnit;
         }
 
         private void Awake()
@@ -50,6 +45,7 @@ namespace DefaultNamespace.GameSystems
             }
         }
 
+        [Button]
         private void BuyUnit(UnitsData unitsData, TeamData teamData)
         {
             var price = priceCatalog.GetPrice(unitsData);
@@ -60,7 +56,7 @@ namespace DefaultNamespace.GameSystems
                     if (storage.CanSpendMoney(price))
                     {
                         storage.SpendMoney(price);
-                        _spawnSystem.SpawnUnit(_units[unitsData]);
+                        _spawner.SpawnUnit(_units[unitsData]);
                     }
             }
         }
