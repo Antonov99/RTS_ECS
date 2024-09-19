@@ -9,23 +9,23 @@ using ITickable = Zenject.ITickable;
 namespace DefaultNamespace.GameSystems
 {
     [UsedImplicitly]
-    public sealed class MoneyFarmingSystem:IInitializable,IDisposable, ITickable
+    public sealed class MoneyFarmingSystem : IInitializable, IDisposable, ITickable
     {
-        private MoneyStorage[] _moneyStorages;
+        private MoneyStorage _moneyStorage;
         private Timer _timer;
 
         private const float _DURATION = 1f;
         private const int _AMOUNT = 1;
-        
+
         [Inject]
-        public void Construct(MoneyStorage[] moneyStorages)
+        public void Construct(MoneyStorage moneyStorage)
         {
-            _moneyStorages = moneyStorages;
+            _moneyStorage = moneyStorage;
         }
 
         void IInitializable.Initialize()
         {
-            _timer = new Timer(_DURATION,true);
+            _timer = new Timer(_DURATION, true);
 
             _timer.Start();
             _timer.OnEnded += AddMoney;
@@ -33,10 +33,7 @@ namespace DefaultNamespace.GameSystems
 
         private void AddMoney()
         {
-            foreach (var storage in _moneyStorages)
-            {
-                storage.EarnMoney(_AMOUNT);
-            }
+            _moneyStorage.EarnMoney(_AMOUNT);
         }
 
         void ITickable.Tick()
@@ -46,7 +43,7 @@ namespace DefaultNamespace.GameSystems
 
         void IDisposable.Dispose()
         {
-            _timer.OnEnded += AddMoney;
+            _timer.OnEnded -= AddMoney;
         }
     }
 }

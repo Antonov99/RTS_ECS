@@ -6,38 +6,31 @@ using Zenject;
 namespace Money
 {
     [UsedImplicitly]
-    public sealed class MoneyPresenter:IInitializable, IDisposable
+    public sealed class MoneyPresenter : IInitializable, IDisposable
     {
-        private MoneyStorage[] _moneyStorage;
-        
-        public event Action<string, TeamData> OnMoneyChanged;
+        private readonly MoneyView _moneyView;
+        private readonly MoneyStorage _moneyStorage;
 
-        [Inject]
-        public void Construct(MoneyStorage[] moneyStorage)
+        public MoneyPresenter(MoneyView moneyView, MoneyStorage moneyStorage)
         {
+            _moneyView = moneyView;
             _moneyStorage = moneyStorage;
         }
 
         void IInitializable.Initialize()
         {
-            foreach (var storage in _moneyStorage)
-            {
-                storage.OnMoneyChanged += UpdateMoney;
-            }
+            _moneyStorage.OnMoneyChanged += UpdateMoney;
         }
 
         void IDisposable.Dispose()
         {
-            foreach (var storage in _moneyStorage)
-            {
-                storage.OnMoneyChanged -= UpdateMoney;
-            }
+            _moneyStorage.OnMoneyChanged -= UpdateMoney;
         }
 
-        private void UpdateMoney(int money, TeamData team)
+        private void UpdateMoney(int money)
         {
             string moneyText = money.ToString();
-            OnMoneyChanged?.Invoke(moneyText, team);
+            _moneyView.UpdateMoney(moneyText);
         }
     }
 }

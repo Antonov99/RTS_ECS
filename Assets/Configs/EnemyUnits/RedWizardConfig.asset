@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e876e1e424d647518f28dd5a20883f20, type: 3}
   m_Name: RedWizardConfig
   m_EditorClassIdentifier: 
-  id: 4
+  id: 2
   prefab: {fileID: 8105498154662518136, guid: b138107ebdc38f34688564dd097ccac8, type: 3}
   spawnPoint: {fileID: 0}

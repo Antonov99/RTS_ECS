@@ -7,18 +7,11 @@ namespace Money
     [Serializable]
     public sealed class MoneyStorage
     {
-        public event Action<int, TeamData> OnMoneyChanged;
-        public event Action<int, TeamData> OnMoneyEarned;
-        public event Action<int, TeamData> OnMoneySpent;
+        public event Action<int> OnMoneyChanged;
+        public event Action<int> OnMoneyEarned;
+        public event Action<int> OnMoneySpent;
 
         [ReadOnly, ShowInInspector] public int Money { get; private set; }
-
-        public TeamData team;
-
-        public MoneyStorage(TeamData teamData)
-        {
-            team = teamData;
-        }
 
         [Title("Methods")]
         [Button]
@@ -39,8 +32,8 @@ namespace Money
             var newValue = previousValue + amount;
 
             Money = newValue;
-            OnMoneyChanged?.Invoke(newValue, team);
-            OnMoneyEarned?.Invoke(amount, team);
+            OnMoneyChanged?.Invoke(newValue);
+            OnMoneyEarned?.Invoke(amount);
         }
 
         [Button]
@@ -66,8 +59,8 @@ namespace Money
             }
 
             Money = newValue;
-            OnMoneyChanged?.Invoke(newValue, team);
-            OnMoneySpent?.Invoke(amount, team);
+            OnMoneyChanged?.Invoke(newValue);
+            OnMoneySpent?.Invoke(amount);
         }
 
         [Button]
@@ -75,7 +68,7 @@ namespace Money
         public void SetupMoney(int money)
         {
             Money = money;
-            OnMoneyChanged?.Invoke(money, team);
+            OnMoneyChanged?.Invoke(money);
         }
 
         public bool CanSpendMoney(int amount)

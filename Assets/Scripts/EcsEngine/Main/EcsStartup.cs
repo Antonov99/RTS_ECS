@@ -1,9 +1,6 @@
-using EcsEngine.Components;
-using EcsEngine.Systems;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Entities;
-using Leopotam.EcsLite.ExtendedSystems;
 using UnityEngine;
 using Zenject;
 
@@ -15,11 +12,13 @@ namespace EcsEngine
         private EcsWorld _world;
         private EcsWorld _events;
         private IEcsSystems _systems;
+        private EcsSystemsInstaller _systemsInstaller;
 
         [Inject]
-        public void Construct(EntityManager entityManager)
+        public void Construct(EntityManager entityManager, EcsSystemsInstaller systemsInstaller)
         {
             _entityManager = entityManager;
+            _systemsInstaller = systemsInstaller;
         }
 
         private void Awake()
@@ -29,51 +28,24 @@ namespace EcsEngine
             _systems = new EcsSystems(_world);
 
             _systems.AddWorld(_events, EcsWorlds.EVENTS);
-
-            _systems
-                //Logic:
-                .Add(new MovementSystem())
-                .Add(new HealthEmptySystem())
-                .Add(new DeathRequestSystem())
-                .Add(new TargetExistSystem())
-                .Add(new TargetRequestSystem())
-                .Add(new UnitAISystem())
-                .Add(new AttackRequestSystem())
-                .Add(new VictorySystem())
-                .Add(new TowerBurningSystem())
-                .Add(new TowerBurningRequestSystem())
-
-                //View:
-                .Add(new TransformViewSystem())
-                .Add(new AnimatorDeathListener())
-                .Add(new AnimatorAttackListener())
-                .Add(new AnimatorMoveListener())
-                .Add(new TowerVFXListener())
-
-                //Editor:
-#if UNITY_EDITOR
-                .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
-#endif
-
-                //Clear:
-                .DelHere<DeathEvent>()
-                .DelHere<AttackEvent>();
+            
+            _systemsInstaller.Install(_systems);
         }
 
-        void Start()
+        private void Start()
         {
             _entityManager.Initialize(_world);
             _systems.Inject(_entityManager);
             _systems.Init();
         }
 
-        void Update()
+        private void Update()
         {
             // process systems here.
             _systems?.Run();
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (_systems != null)
             {

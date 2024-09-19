@@ -1,5 +1,6 @@
 ﻿using System;
 using DefaultNamespace;
+using DefaultNamespace.GameSystems;
 using JetBrains.Annotations;
 using Zenject;
 
@@ -9,14 +10,12 @@ namespace Units
     public class UnitsCatalogPresenter:IInitializable,IDisposable
     {
         private readonly UnitsCatalogView _catalogView;
-
-        public event Action<UnitsData, TeamData> OnBuyUnit;
-
-        private const TeamData _TEAM = TeamData.BLUE;
+        private readonly UnitBuyer _unitBuyer;
         
-        public UnitsCatalogPresenter(UnitsCatalogView view)
+        public UnitsCatalogPresenter(UnitsCatalogView view,UnitBuyer unitBuyer)
         {
             _catalogView = view;
+            _unitBuyer = unitBuyer;
         }
 
         void IInitializable.Initialize()
@@ -26,13 +25,12 @@ namespace Units
         
         private void BuyUnit(UnitsData data)
         {
-            OnBuyUnit?.Invoke(data,_TEAM);
+            _unitBuyer.BuyUnit(data);
         }
 
         void IDisposable.Dispose()
         {
             _catalogView.OnBuyUnit -= BuyUnit;
         }
-
     }
 }

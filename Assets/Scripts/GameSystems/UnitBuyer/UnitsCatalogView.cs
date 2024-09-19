@@ -26,17 +26,17 @@ namespace DefaultNamespace
 
         private void OnSpawnWarrior()
         {
-            OnBuyUnit?.Invoke(UnitsData.BLUE_WARRIOR);
+            OnBuyUnit?.Invoke(UnitsData.WARRIOR);
         }
         
         private void OnSpawnArcher()
         {
-            OnBuyUnit?.Invoke(UnitsData.BLUE_ARCHER);
+            OnBuyUnit?.Invoke(UnitsData.ARCHER);
         }
         
         private void OnSpawnWizard()
         {
-            OnBuyUnit?.Invoke(UnitsData.BLUE_WIZARD);
+            OnBuyUnit?.Invoke(UnitsData.WIZARD);
         }
 
         private void OnDestroy()

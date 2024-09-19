@@ -1,64 +1,55 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Money;
-using Sirenix.OdinInspector;
-using Units;
-using UnityEngine;
 using Zenject;
 
 namespace DefaultNamespace.GameSystems
 {
-    public class UnitBuyer:MonoBehaviour
+    [UsedImplicitly]
+    public class UnitBuyer : IInitializable
     {
-        [SerializeField]
-        private UnitsCatalog unitsCatalog;
+        private UnitsCatalog _unitsCatalog;
 
-        [SerializeField]
-        private PriceCatalog priceCatalog;
-        
-        [SerializeField]
-        private MoneyStorage[] moneyStorage;
+        private PriceCatalog _priceCatalog;
+
+        private MoneyStorage _moneyStorage;
 
         private UnitsSpawner _spawner;
 
-        private UnitsCatalogPresenter _catalogPresenter;
-        
-        [ReadOnly, ShowInInspector]
-        private Dictionary<UnitsData, UnitConfig> _units = new();
+        private readonly Dictionary<UnitsData, UnitConfig> _units = new();
 
         [Inject]
-        public void Construct(MoneyStorage[] storage, UnitsCatalogPresenter catalogPresenter, UnitsSpawner spawner)
+        public void Construct(
+            MoneyStorage storage, 
+            UnitsSpawner spawner, 
+            UnitsCatalog unitsCatalog,
+            PriceCatalog priceCatalog
+            )
         {
-            moneyStorage = storage;
-            _catalogPresenter = catalogPresenter;
+            _moneyStorage = storage;
             _spawner = spawner;
-            
-            _catalogPresenter.OnBuyUnit += BuyUnit;
+            _unitsCatalog = unitsCatalog;
+            _priceCatalog = priceCatalog;
         }
 
-        private void Awake()
+        void IInitializable.Initialize()
         {
-            var unitConfigs = unitsCatalog.GetAllUnits();
-            
+            var unitConfigs = _unitsCatalog.GetAllUnits();
+
             foreach (var config in unitConfigs)
             {
                 _units[config.id] = config;
             }
         }
 
-        [Button]
-        private void BuyUnit(UnitsData unitsData, TeamData teamData)
+        public void BuyUnit(UnitsData unitsData)
         {
-            var price = priceCatalog.GetPrice(unitsData);
+            var price = _priceCatalog.GetPrice(unitsData);
 
-            foreach (var storage in moneyStorage)
-            {
-                if (storage.team == teamData)
-                    if (storage.CanSpendMoney(price))
-                    {
-                        storage.SpendMoney(price);
-                        _spawner.SpawnUnit(_units[unitsData]);
-                    }
-            }
+            if (!_moneyStorage.CanSpendMoney(price)) return;
+
+            _moneyStorage.SpendMoney(price);
+            _spawner.SpawnUnit(_units[unitsData]);
         }
     }
 }

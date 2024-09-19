@@ -1,7 +1,9 @@
 using DefaultNamespace;
+using JetBrains.Annotations;
 using Leopotam.EcsLite.Entities;
 using UnityEngine;
 
+[UsedImplicitly]
 public class UnitsSpawner
 {
     private readonly Transform _parent;

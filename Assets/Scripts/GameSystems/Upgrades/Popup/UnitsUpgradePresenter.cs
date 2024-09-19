@@ -2,6 +2,7 @@
 using Data;
 using DefaultNamespace;
 using JetBrains.Annotations;
+using Sample;
 using Zenject;
 
 namespace Upgrades
@@ -10,14 +11,12 @@ namespace Upgrades
     public class UnitsUpgradePresenter : IInitializable, IDisposable
     {
         private readonly UnitsUpgradeView _upgradeView;
+        private readonly UpgradesManager _upgradesManager;
 
-        public event Action<UpgradeType, TeamData> OnUpgradeUnit;
-
-        private const TeamData _TEAM = TeamData.BLUE;
-
-        public UnitsUpgradePresenter(UnitsUpgradeView view)
+        public UnitsUpgradePresenter(UnitsUpgradeView view, UpgradesManager upgradesManager)
         {
             _upgradeView = view;
+            _upgradesManager = upgradesManager;
         }
 
         void IInitializable.Initialize()
@@ -27,7 +26,7 @@ namespace Upgrades
 
         private void BuyUnit(UpgradeType upgrade)
         {
-            OnUpgradeUnit?.Invoke(upgrade, _TEAM);
+            _upgradesManager.LevelUp(upgrade);
         }
 
         void IDisposable.Dispose()

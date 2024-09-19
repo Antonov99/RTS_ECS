@@ -1,84 +1,26 @@
 using System;
 using System.Collections.Generic;
 using Data;
-using DefaultNamespace;
+using DI;
 using Money;
 using Sirenix.OdinInspector;
-using UnityEngine;
-using UnityEngine.Serialization;
-using Upgrades;
 using Zenject;
 
 namespace Sample
 {
-    public sealed class UpgradesManager : MonoBehaviour
+    public sealed class UpgradesManager
     {
         public event Action<Upgrade> OnLevelUp;
 
-        [ReadOnly, ShowInInspector]
         private Dictionary<UpgradeType, Upgrade> _upgrades = new();
 
-        private MoneyStorage[] moneyStorages;
+        private readonly MoneyStorage _moneyStorage;
 
-        private MoneyStorage playerMoneyStorage;
-        
-        private MoneyStorage enemyMoneyStorage;
-
-        private UnitsUpgradePresenter _upgradePresenter;
-
-        [FormerlySerializedAs("configs")]
-        [SerializeField]
-        private UpgradeCatalog upgradeConfigs;
-
-        [SerializeField]
-        private StatsConfig statsConfig;
-
-        [FormerlySerializedAs("_stats")]
-        [SerializeField]
-        private UnitStats stats;
-
-        private void Awake()
+        public UpgradesManager(MoneyStorage storage, UpgradesFactory upgradesFactory)
         {
-            var configs = upgradeConfigs.GetAllUpgrades();
-            var upgrades = new Upgrade[configs.Length];
-            for (int i = 0; i < upgrades.Length; i++)
-            {
-                upgrades[i]=configs[i].InstantiateUpgrade(stats);
-            }
-            SetupUpgrades(upgrades);
-            SetupStats();
-        }
-
-        private void SetupStats()
-        {
-            foreach (var stat in statsConfig.Stats)
-            {
-                AddStat(stat.Key,stat.Value);
-            }
-        }
-
-        [Inject]
-        public void Construct(MoneyStorage[] storages, UnitStats unitStats, UnitsUpgradePresenter upgradePresenter)
-        {
-            moneyStorages = storages;
-            stats = unitStats;
-
-            foreach (var storage in moneyStorages)
-            {
-                if (storage.team == TeamData.BLUE)
-                    playerMoneyStorage = storage;
-                else
-                    enemyMoneyStorage = storage;
-            }
-
-            _upgradePresenter = upgradePresenter;
-            _upgradePresenter.OnUpgradeUnit += LevelUp;
-        }
-
-        [Button]
-        public void AddStat(StatsData statName, int value)
-        {
-            stats.AddStat(statName, value);
+            _moneyStorage = storage;
+            
+            SetupUpgrades(upgradesFactory.InstantiateUpgrades());
         }
 
         private void SetupUpgrades(Upgrade[] upgrades)
@@ -96,7 +38,7 @@ namespace Sample
             return _upgrades[id];
         }
 
-        private bool CanLevelUp(Upgrade upgrade, TeamData team)
+        private bool CanLevelUp(Upgrade upgrade)
         {
             if (upgrade.isMaxLevel)
             {
@@ -111,26 +53,20 @@ namespace Sample
             }
 
             var price = upgrade.nextPrice;
-            
-            if (team == TeamData.BLUE)
-                return playerMoneyStorage.CanSpendMoney(price);
-            else
-                return enemyMoneyStorage.CanSpendMoney(price);
+
+            return _moneyStorage.CanSpendMoney(price);
         }
 
-        private void LevelUp(Upgrade upgrade, TeamData team)
+        private void LevelUp(Upgrade upgrade)
         {
-            if (!CanLevelUp(upgrade, team))
+            if (!CanLevelUp(upgrade))
             {
                 throw new Exception($"Can not level up {upgrade.id}");
             }
 
             var price = upgrade.nextPrice;
-            
-            if(team==TeamData.BLUE)
-                playerMoneyStorage.SpendMoney(price);
-            else
-                enemyMoneyStorage.SpendMoney(price);
+
+            _moneyStorage.SpendMoney(price);
 
             upgrade.LevelUp();
             OnLevelUp?.Invoke(upgrade);
@@ -138,22 +74,17 @@ namespace Sample
 
         [Title("Methods")]
         [Button]
-        public bool CanLevelUp(UpgradeType id, TeamData team)
+        public bool CanLevelUp(UpgradeType id)
         {
             var upgrade = _upgrades[id];
-            return CanLevelUp(upgrade, team);
+            return CanLevelUp(upgrade);
         }
 
         [Button]
-        public void LevelUp(UpgradeType id, TeamData team)
+        public void LevelUp(UpgradeType id)
         {
             var upgrade = _upgrades[id];
-            LevelUp(upgrade, team);
-        }
-
-        private void OnDestroy()
-        {
-            _upgradePresenter.OnUpgradeUnit -= LevelUp;
+            LevelUp(upgrade);
         }
     }
 }

@@ -16,8 +16,8 @@ namespace Sample.Implementations
 
         protected override void LevelUp(int lvl)
         {
-            var arcehrHealth = _stats.GetStat(StatsData.ARCHER_HEALTH) + 1;
-            _stats.SetStat(StatsData.ARCHER_HEALTH, arcehrHealth);
+            var archerHealth = _stats.GetStat(StatsData.ARCHER_HEALTH) + 1;
+            _stats.SetStat(StatsData.ARCHER_HEALTH, archerHealth);
             
             var warriorHealth = _stats.GetStat(StatsData.WARRIOR_HEALTH) + 1;
             _stats.SetStat(StatsData.WARRIOR_HEALTH, warriorHealth);

@@ -9,10 +9,10 @@ namespace Data
         fileName = "InitialUnitStats",
         menuName = "Units/New InitialUnitStats"
     )]
-    public class StatsConfig:SerializedScriptableObject
+    public class StatsConfig : SerializedScriptableObject
     {
         [OdinSerialize]
-        public Dictionary<StatsData,int> Stats;
+        public Dictionary<StatsData, int> Stats;
 
         public int GetStat(StatsData id)
         {

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e876e1e424d647518f28dd5a20883f20, type: 3}
   m_Name: BlueWarriorConfig
   m_EditorClassIdentifier: 
-  id: 1
+  id: 0
   prefab: {fileID: 8033605276781919286, guid: d469005a6af214e49a39e8ad4619a035, type: 3}
   spawnPoint: {fileID: 0}

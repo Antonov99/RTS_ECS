@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e876e1e424d647518f28dd5a20883f20, type: 3}
   m_Name: BlueArcherConfig
   m_EditorClassIdentifier: 
-  id: 3
+  id: 1
   prefab: {fileID: 7408875852824098648, guid: 8a152550952224f42b36340b51008538, type: 3}
   spawnPoint: {fileID: 0}
