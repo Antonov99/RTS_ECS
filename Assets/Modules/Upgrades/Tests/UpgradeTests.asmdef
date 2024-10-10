@@ -1,0 +1,23 @@
+{
+    "name": "UpgradeTests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1194ca79312c43e9b1234a4e3f10ba97",
+        "GUID:f494a012a76241479feb00d9f0704bab"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

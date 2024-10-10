@@ -475,75 +475,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2389529508276699356}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &269983026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 269983027}
-  - component: {fileID: 269983029}
-  - component: {fileID: 269983028}
-  m_Layer: 0
-  m_Name: EnemyContext
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &269983027
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269983026}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1538614567}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &269983028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269983026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc217b83f6f948cb87f3093e68925fa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  view: {fileID: 889591326}
-  unitsCatalog: {fileID: 11400000, guid: dac5ae43b1ed3e445a906154418652bf, type: 2}
-  priceCatalog: {fileID: 11400000, guid: f119e2f9a51412d4396de5762bf9b247, type: 2}
-  statsConfig: {fileID: 11400000, guid: bd8a9b5f498ad1149ab2c99e4b44f698, type: 2}
-  upgradesCatalog: {fileID: 11400000, guid: 94e4e55fa91ec9e4ebe5a65fd9571962, type: 2}
-  team: 0
---- !u!114 &269983029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269983026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 269983028}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
 --- !u!1 &315112990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1537,7 @@ GameObject:
   - component: {fileID: 822640630}
   - component: {fileID: 822640632}
   - component: {fileID: 822640631}
+  - component: {fileID: 822640633}
   m_Layer: 0
   m_Name: PlayerContext
   m_TagString: Untagged
@@ -1640,14 +1572,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051c05185ce1473d881f32e0c722f928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 4315138532689708815}
-  catalogView: {fileID: 1855411237}
-  upgradeView: {fileID: 592132181}
+  moneyView: {fileID: 4315138532689708815}
   unitsCatalog: {fileID: 11400000, guid: bad187aa23076da40a72a43b7ff9da76, type: 2}
   priceCatalog: {fileID: 11400000, guid: f119e2f9a51412d4396de5762bf9b247, type: 2}
   statsConfig: {fileID: 11400000, guid: bd8a9b5f498ad1149ab2c99e4b44f698, type: 2}
   upgradesCatalog: {fileID: 11400000, guid: 94e4e55fa91ec9e4ebe5a65fd9571962, type: 2}
-  team: 1
 --- !u!114 &822640632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1663,9 +1592,24 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 822640631}
+  - {fileID: 822640633}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &822640633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822640629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c328e159b87a4c3aa0676a7bd499abc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catalogView: {fileID: 1855411237}
+  upgradeView: {fileID: 592132181}
 --- !u!1001 &863194044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2493,6 +2437,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1378845832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1378845833}
+  - component: {fileID: 1378845835}
+  - component: {fileID: 1378845834}
+  m_Layer: 0
+  m_Name: EnemyContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1378845833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378845832}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1538614567}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1378845834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378845832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 051c05185ce1473d881f32e0c722f928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyView: {fileID: 889591326}
+  unitsCatalog: {fileID: 11400000, guid: dac5ae43b1ed3e445a906154418652bf, type: 2}
+  priceCatalog: {fileID: 11400000, guid: f119e2f9a51412d4396de5762bf9b247, type: 2}
+  statsConfig: {fileID: 11400000, guid: bd8a9b5f498ad1149ab2c99e4b44f698, type: 2}
+  upgradesCatalog: {fileID: 11400000, guid: 94e4e55fa91ec9e4ebe5a65fd9571962, type: 2}
+--- !u!114 &1378845835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378845832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 1378845834}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
 --- !u!1 &1482936754
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,7 +2750,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 822640630}
-  - {fileID: 269983027}
+  - {fileID: 1378845833}
   m_Father: {fileID: 1884936191}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
