@@ -31,6 +31,7 @@ namespace Content
             entity.AddData(new Damage{value = stats.GetStat(StatsType.WIZARD_POWER)});
             entity.AddData(new MoveDirection { value = Vector3.forward });
             entity.AddData(new Position { value = transform.position });
+            entity.AddData(new Rotation {value = transform.rotation});
             entity.AddData(new Team { value = team });
             entity.AddData(new DamagableTag());
             entity.AddData(new Target { value = -1 });

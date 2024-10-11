@@ -25,6 +25,7 @@ namespace Content
             entity.AddData(new Damage{value = stats.GetStat(StatsType.WARRIOR_POWER)});
             entity.AddData(new MoveDirection{value = Vector3.zero});
             entity.AddData(new Position{value = transform.position});
+            entity.AddData(new Rotation {value = transform.rotation});
             entity.AddData(new Team{value = team});
             entity.AddData(new DamagableTag());
             entity.AddData(new Target{value = -1});

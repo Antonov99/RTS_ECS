@@ -24,6 +24,8 @@ namespace EcsEngine.Systems
                 ref Position position = ref positionPool.Get(entity);
 
                 position.value += moveDirection.value * (moveSpeed.value * deltaTime);
+                
+                
             }
         }
     }

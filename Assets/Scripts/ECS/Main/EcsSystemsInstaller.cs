@@ -24,6 +24,7 @@ namespace EcsEngine
             _systems
                 //Logic:
                 .Add(new MovementSystem())
+                .Add(new RotationSystem())
                 .Add(new HealthEmptySystem())
                 .Add(new DeathRequestSystem())
                 .Add(new TargetExistSystem())
