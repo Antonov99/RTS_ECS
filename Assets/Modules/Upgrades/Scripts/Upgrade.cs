@@ -2,7 +2,6 @@ using System;
 using Data;
 using DefaultNamespace;
 using Sirenix.OdinInspector;
-// ReSharper disable ConvertToAutoPropertyWithPrivateSetter
 
 namespace Sample
 {
@@ -10,39 +9,43 @@ namespace Sample
     {
         public event Action<int> OnLevelUp;
 
-        [ShowInInspector, ReadOnly]
-        public UpgradeType[] dependencies => _config.dependencies;
-        
-        [ShowInInspector, ReadOnly]
-        public UpgradeType id => _config.id;
+        [ShowInInspector, ReadOnly] 
+        public UpgradeType[] Dependencies { get; set; }
+
+        [ShowInInspector, ReadOnly] 
+        public UpgradeType ID { get; set; }
 
         [ShowInInspector, ReadOnly]
-        public int level => _currentLevel;
+        public int Level => _currentLevel;
 
         [ShowInInspector, ReadOnly]
-        public int maxLevel => _config.maxLevel;
+        public int MaxLevel { get; set; }
 
-        public bool isMaxLevel => _currentLevel == _config.maxLevel;
-
-        [ShowInInspector, ReadOnly]
-        public float progress => (float) _currentLevel / _config.maxLevel;
+        public bool IsMaxLevel => _currentLevel == MaxLevel;
 
         [ShowInInspector, ReadOnly]
-        public int nextPrice => _config.GetPrice(level + 1);
+        public float Progress => (float) _currentLevel / MaxLevel;
 
-        private readonly UpgradeConfig _config;
+        [ShowInInspector, ReadOnly] 
+        public int NextPrice { get; set; }
 
-        private int _currentLevel;
+        private int _currentLevel=1;
 
         protected Upgrade(UpgradeConfig config)
         {
-            _config = config;
-            _currentLevel = 1;
+            NextPrice = config.GetPrice(Level + 1);
+            MaxLevel = config.maxLevel;
+            ID = config.id;
+            Dependencies = config.dependencies;
         }
 
-        /*protected Upgrade(PriceTable table, ...)
+        protected Upgrade(PriceTable table, int maxLevel, UpgradeType id, UpgradeType[] dependencies)
         {
-        }*/
+            NextPrice = table.GetPrice(Level + 1);
+            MaxLevel = maxLevel;
+            ID = id;
+            Dependencies = dependencies;
+        }
 
         public void SetupLevel(int lvl)
         {
@@ -51,12 +54,12 @@ namespace Sample
 
         public void LevelUp()
         {
-            if (level >= maxLevel)
+            if (Level >= MaxLevel)
             {
-                throw new Exception($"Can not increment level for upgrade {_config.id}!");
+                throw new Exception($"Can not increment level for upgrade {ID}!");
             }
 
-            var nextLevel = level + 1;
+            var nextLevel = Level + 1;
             _currentLevel = nextLevel;
             LevelUp(nextLevel);
             OnLevelUp?.Invoke(nextLevel);

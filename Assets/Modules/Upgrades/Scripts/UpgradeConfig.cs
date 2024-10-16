@@ -37,8 +37,8 @@ namespace Sample
                 // ignored
             }
         }
-        
-        protected virtual void Validate()
+
+        private void Validate()
         {
             priceTable.OnValidate(maxLevel);
         }

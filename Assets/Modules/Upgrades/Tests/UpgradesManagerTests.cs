@@ -1,29 +1,39 @@
-﻿using Money;
+﻿using System;
+using Data;
+using DefaultNamespace;
+using Money;
 using NUnit.Framework;
 using Sample;
-using UnityEngine;
 
 namespace Modules.Upgrades.Tests
 {
     public class UpgradesManagerTests
     {
         private MoneyStorage _moneyStorage;
-        
+        private Action<int> _levelUp;
+
         [Test]
         public void Instantiate()
         {
-           //Arrange:
-           _moneyStorage = new MoneyStorage();
-          
-           /*var upgrades = new Upgrade[]
-           {
-               new Upgrade()
-           };
-           
-           
-           var upgradesManager = new UpgradesManager(_moneyStorage, upgrades );
+            //Arrange:
+            _moneyStorage = new MoneyStorage();
+            _moneyStorage.SetupMoney(2);
+
+            var priceTable = new PriceTable();
+            priceTable.OnValidate(2);
+        
+            var upgrades = new Upgrade[]
+            {
+                new UpgradeMock(priceTable,2,UpgradeType.POWER_UPGRADE),
+                new UpgradeMock(priceTable,2,UpgradeType.HEALTH_UPGRADE),
+                new UpgradeMock(priceTable,2,UpgradeType.SPEED_UPGRADE)
+            };
+
+            var upgradesManager = new UpgradesManager(_moneyStorage, upgrades);
             
-            Assert.IsTrue(success);*/
+            //Assert
+            Assert.IsTrue(upgradesManager.CanLevelUp(UpgradeType.POWER_UPGRADE));
+            Assert.IsTrue(upgradesManager.CanLevelUp(UpgradeType.HEALTH_UPGRADE));
         }
     }
 }

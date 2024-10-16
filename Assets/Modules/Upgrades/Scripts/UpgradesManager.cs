@@ -19,7 +19,7 @@ namespace Sample
         {
             _moneyStorage = storage ?? throw new ArgumentNullException(nameof(storage));
             
-            _upgrades = upgrades?.ToDictionary(it=>it.id) ?? throw new ArgumentNullException(nameof(upgrades));
+            _upgrades = upgrades?.ToDictionary(it=>it.ID) ?? throw new ArgumentNullException(nameof(upgrades));
         }
 
         private Upgrade GetUpgrade(UpgradeType id)
@@ -29,19 +29,20 @@ namespace Sample
 
         private bool CanLevelUp(Upgrade upgrade)
         {
-            if (upgrade.isMaxLevel)
+            if (upgrade.IsMaxLevel)
             {
                 return false;
             }
 
-            var dependencies = upgrade.dependencies;
-            foreach (var dependency in dependencies)
-            {
-                if (GetUpgrade(dependency).level <= upgrade.level)
-                    return false;
-            }
+            var dependencies = upgrade.Dependencies;
+            if (dependencies != null) 
+                foreach (var dependency in dependencies)
+                {
+                    if (GetUpgrade(dependency).Level <= upgrade.Level)
+                        return false;
+                }
 
-            var price = upgrade.nextPrice;
+            var price = upgrade.NextPrice;
 
             return _moneyStorage.CanSpendMoney(price);
         }
@@ -50,10 +51,10 @@ namespace Sample
         {
             if (!CanLevelUp(upgrade))
             {
-                throw new Exception($"Can not level up {upgrade.id}");
+                throw new Exception($"Can not level up {upgrade.ID}");
             }
 
-            var price = upgrade.nextPrice;
+            var price = upgrade.NextPrice;
 
             _moneyStorage.SpendMoney(price);
 

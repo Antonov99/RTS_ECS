@@ -21,17 +21,17 @@ namespace Upgrades
 
         void IInitializable.Initialize()
         {
-            _upgradeView.OnUpgradeUnit += BuyUnit;
+            _upgradeView.OnUpgradeUnit += UpgradeUnit;
         }
 
-        private void BuyUnit(UpgradeType upgrade)
+        private void UpgradeUnit(UpgradeType upgrade)
         {
             _upgradesManager.LevelUp(upgrade);
         }
 
         void IDisposable.Dispose()
         {
-            _upgradeView.OnUpgradeUnit -= BuyUnit;
+            _upgradeView.OnUpgradeUnit -= UpgradeUnit;
         }
     }
 }

@@ -48,7 +48,5 @@ namespace DI
             Container.Bind<PriceCatalog>().FromInstance(priceCatalog).AsSingle();
             Container.Bind<StatsConfig>().FromInstance(statsConfig).AsSingle();
         }
-
-
     }
 }

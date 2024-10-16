@@ -1,4 +1,6 @@
 ﻿using System;
+using Data;
+using DefaultNamespace;
 using Sample;
 
 namespace Modules.Upgrades.Tests
@@ -7,7 +9,13 @@ namespace Modules.Upgrades.Tests
     {
         private readonly Action<int> _levelUp;
         
-        public UpgradeMock(UpgradeConfig config, Action<int> levelUp=null) : base(config)
+        public UpgradeMock(
+            PriceTable table,
+            int maxLevel, 
+            UpgradeType id, 
+            UpgradeType[] dependencies=null, 
+            Action<int> levelUp=null
+            ) : base(table, maxLevel, id,dependencies)
         {
             _levelUp = levelUp;
         }

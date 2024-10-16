@@ -9,7 +9,7 @@ namespace DefaultNamespace
     {
         [Space]
         [SerializeField]
-        private int basePrice;
+        private int basePrice=1;
 
         [Space]
         [ListDrawerSettings(OnBeginListElementGUI = "DrawLevels")]
