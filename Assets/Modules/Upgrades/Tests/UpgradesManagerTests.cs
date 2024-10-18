@@ -17,7 +17,7 @@ namespace Modules.Upgrades.Tests
         {
             //Arrange:
             _moneyStorage = new MoneyStorage();
-            _moneyStorage.SetupMoney(2);
+            _moneyStorage.SetupMoney(5);
 
             var priceTable = new PriceTable();
             priceTable.OnValidate(2);
@@ -30,10 +30,11 @@ namespace Modules.Upgrades.Tests
             };
 
             var upgradesManager = new UpgradesManager(_moneyStorage, upgrades);
+            upgradesManager.LevelUp(UpgradeType.HEALTH_UPGRADE);
             
             //Assert
             Assert.IsTrue(upgradesManager.CanLevelUp(UpgradeType.POWER_UPGRADE));
-            Assert.IsTrue(upgradesManager.CanLevelUp(UpgradeType.HEALTH_UPGRADE));
+            Assert.IsFalse(upgradesManager.CanLevelUp(UpgradeType.HEALTH_UPGRADE));
         }
     }
 }
